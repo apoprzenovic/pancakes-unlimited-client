@@ -126,7 +126,7 @@ function Signup() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        helperText={<p className="text-red-600">{passwordError}</p>}
+                        helperText={<span className="text-red-600">{passwordError}</span>}
                     />
                 </div>
                 <div>
@@ -141,7 +141,7 @@ function Signup() {
                         type="password"
                         value={repeatPassword}
                         onChange={(e) => setRepeatPassword(e.target.value)}
-                        helperText={<p className="text-red-600">{repeatPasswordError}</p>}
+                        helperText={<span className="text-red-600">{repeatPasswordError}</span>}
                     />
                 </div>
                 <Label htmlFor={"login"}><span className={"text-gray-500"}>Already have an account? <Link to={"/login"}

@@ -43,9 +43,6 @@ function Login() {
                         required
                         shadow
                         type="password"
-                        helperText={<>Don't have an account? <Link to={"/signup"}
-                                                                   className={"text-main-text-black underline hover:text-main-text-in-focus"}>Sign
-                            up!</Link></>}
                     />
                 </div>
                 <Label htmlFor={"login"}><span className={"text-gray-500"}>Don't have an account? <Link to={"/signup"}
