@@ -1,4 +1,4 @@
-import react, {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Alert, Avatar, Button, Dropdown, Modal, Navbar} from "flowbite-react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
@@ -57,7 +57,7 @@ function NavBar() {
                         </h3>
                         <div className="flex justify-center gap-4">
                             <Button
-                                className={"border border-black bg-transparent hover:!bg-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
+                                className={"!border !border-black bg-transparent hover:!bg-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
                                 onClick={handleLogoutClick}
                             >
                                      Yes, I'm sure

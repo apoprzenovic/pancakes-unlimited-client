@@ -1,9 +1,10 @@
-import react, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Label, TextInput} from "flowbite-react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../components/ErrorAlert";
 import {UserContext} from "../context/UserContext";
+import LoggedIn from "../components/LoggedIn";
 
 function Signup() {
 
@@ -98,6 +99,9 @@ function Signup() {
             });
     }
 
+    if(user) {
+        return <LoggedIn/>;
+    }
 
     return (
         <>

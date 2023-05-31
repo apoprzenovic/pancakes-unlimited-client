@@ -1,9 +1,10 @@
-import react, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Label, TextInput} from "flowbite-react";
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../components/ErrorAlert";
 import {UserContext} from "../context/UserContext";
+import LoggedIn from "../components/LoggedIn";
 
 function Login() {
 
@@ -11,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [alert, showAlert] = useState(false);
     const navigate = useNavigate();
-    const {handleLogin} = useContext(UserContext);
+    const {user, handleLogin} = useContext(UserContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,6 +35,10 @@ function Login() {
                 console.error(err);
                 showAlert(true);
             });
+    }
+
+    if (user) {
+        return <LoggedIn/>;
     }
 
     return (

@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {Button, Card} from "flowbite-react";
 import axios from 'axios';
 import {UserContext} from '../context/UserContext';
@@ -24,6 +24,13 @@ function Eaten() {
     // maybe add a title for page
     return (
         <div className="flex flex-col items-center justify-center pt-20">
+            <div className={"m-auto pb-20"}>
+                    <div className={"flex justify-between items-center mb-2"}>
+                        <h1 className={"text-4xl font-bold"}>History of Eaten Pancakes</h1>
+                    {/*    Not sure if it will get aligned right or center here*/}
+                    </div>
+                    <hr className={"border-main-text-out-of-focus border-2 rounded-2xl w-full mb-10"}/>
+                </div>
             <div className={"flex w-9/12 bg-main-background items-center justify-center m-auto container"}>
                 {user && orders.length > 0 ? orders.map(order => (
                     <Card key={order.id} className={"m-5 mt-0"}>
@@ -35,7 +42,7 @@ function Eaten() {
                         </Button>
                     </Card>
                 )) : (
-                    <h1 className="font-sans text-main-text-black text-4xl mt-56">
+                    <h1 className="font-sans text-main-text-black text-4xl mt-10">
                         Nothing to display... yet :)
                     </h1>
                 )}
