@@ -1,4 +1,4 @@
-import react, {useState, useEffect, useContext} from "react";
+import {useState, useEffect, useContext} from "react";
 import {Button, Card} from "flowbite-react";
 import axios from 'axios';
 import {UserContext} from '../context/UserContext';
@@ -35,11 +35,9 @@ function Eaten() {
                         </Button>
                     </Card>
                 )) : (
-
                     <h1 className="font-sans text-main-text-black text-4xl mt-56">
                         Nothing to display... yet :)
                     </h1>
-
                 )}
             </div>
         </div>

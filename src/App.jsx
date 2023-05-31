@@ -1,17 +1,18 @@
 import './App.css';
 import {Route, Routes} from "react-router-dom";
-import Home from "./pages/Home";
-import Order from "./pages/Order";
-import Inventory from "./pages/Inventory";
-import Transactions from "./pages/Transactions";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import InvalidPage from "./pages/InvalidPage";
 import NavBar from "./components/NavBar";
-import Eaten from "./pages/Eaten";
 import {UserContext} from "./context/UserContext";
-import {useMemo, useState} from "react";
+import react, {Suspense, useMemo, useState} from "react";
 import BackToTopButton from "./components/BackToTopButton";
+
+const Home = react.lazy(() => import("./pages/Home"));
+const Order = react.lazy(() => import("./pages/Order"));
+const Inventory = react.lazy(() => import("./pages/Inventory"));
+const Transactions = react.lazy(() => import("./pages/Transactions"));
+const Signup = react.lazy(() => import("./pages/Signup"));
+const InvalidPage = react.lazy(() => import("./pages/InvalidPage"));
+const Login = react.lazy(() => import("./pages/Login"));
+const Eaten = react.lazy(() => import("./pages/Eaten"));
 
 function App() {
     const [user, setUser] = useState(null);
@@ -22,11 +23,12 @@ function App() {
         setUser(null);
     }
 
-    const value = useMemo(() => ({ user, handleLogin, handleLogout }), [user]);
+    const value = useMemo(() => ({user, handleLogin, handleLogout}), [user]);
 
     return (
         <UserContext.Provider value={value}>
             <NavBar/>
+            <Suspense fallback={<div className={"text-center m-auto text-3xl mt-20"}>Loading...</div>}>
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/order" element={<Order/>}/>
@@ -37,9 +39,11 @@ function App() {
                 <Route path={"/signup"} element={<Signup/>}/>
                 <Route path="*" element={<InvalidPage/>}/>
             </Routes>
-            <BackToTopButton/>
-        </UserContext.Provider>
-    );
+        </Suspense>
+    <BackToTopButton/>
+</UserContext.Provider>
+)
+    ;
 }
 
 export default App;

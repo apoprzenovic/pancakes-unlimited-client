@@ -7,7 +7,7 @@ import {UserContext} from "../context/UserContext";
 
 function Login() {
 
-        const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alert, showAlert] = useState(false);
     const navigate = useNavigate();

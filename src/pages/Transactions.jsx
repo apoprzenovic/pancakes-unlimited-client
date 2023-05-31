@@ -5,6 +5,12 @@ import {jsPDF} from "jspdf";
 import autoTable from 'jspdf-autotable';
 import {Button, Table} from "flowbite-react";
 
+const USER_ROLES = {
+    CUSTOMER: 1,
+    EMPLOYEE: 2,
+    STORE_OWNER: 3
+};
+
 function Transactions() {
     const [orders, setOrders] = useState([]);
     const [mostOrdered, setMostOrdered] = useState(null);
@@ -12,8 +18,12 @@ function Transactions() {
     const {user} = useContext(UserContext);
 
     useEffect(() => {
-        if (user && user.roles.id === 3) {
-            axios.get("http://localhost:8080/api/pu/orders")
+        if (user && user.roles.id === USER_ROLES.STORE_OWNER) {
+            axios.get("http://localhost:8080/api/pu/orders", {
+                params: {
+                    userId: user.id
+                }
+            })
                 .then(response => setOrders(response.data))
                 .catch(error => console.error(`Error: ${error}`));
 
@@ -34,20 +44,29 @@ function Transactions() {
         doc.save("transaction-report.pdf");
     }
 
-    if (user?.roles.id !== 3) {
+    if (user?.roles.id !== USER_ROLES.STORE_OWNER) {
         return <div><h1 className="text-center font-sans text-main-text-black text-4xl mt-56">You do not have
             permissions to view this page!</h1></div>;
     }
 
     return (
-        <div className="flex flex-col items-center justify-center pt-20">
+        <div className="flex flex-col items-center justify-center pt-14">
             <div className={"w-2/5 flex flex-col items-center bg-main-background m-auto container"}>
                 <div className={"m-auto pb-20"}>
+                    <div className={"flex justify-between items-center mb-2"}>
+                        <h1 className={"text-4xl font-bold"}>Transaction Report</h1>
+                        <Button
+                            className={"!bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1"}
+                            onClick={downloadPDF}>
+                            <span className={"text-xl"}>Download PDF</span>
+                        </Button>
+                    </div>
+                    <hr className={"border-main-text-out-of-focus border-2 rounded-2xl w-full mb-10"}/>
                     {user && orders.length > 0 ? (
                         <Table hoverable className={"!rounded-b"}>
                             <Table.Head className={""}>
-                                <Table.HeadCell className={"!bg-main-in-focus text-white"}>ID</Table.HeadCell>
-                                <Table.HeadCell className={"!bg-main-in-focus"}>User Email</Table.HeadCell>
+                                <Table.HeadCell>ID</Table.HeadCell>
+                                <Table.HeadCell>User Email</Table.HeadCell>
                                 <Table.HeadCell>Label</Table.HeadCell>
                                 <Table.HeadCell>Description</Table.HeadCell>
                                 <Table.HeadCell>Order Time</Table.HeadCell>
@@ -57,7 +76,7 @@ function Transactions() {
                                 {orders.map((order) => (
                                     <Table.Row key={order.id}
                                                className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className={"bg-main-color"}>{order.id}</Table.Cell>
+                                        <Table.Cell className={""}>{order.id}</Table.Cell>
                                         <Table.Cell>{order.users.email}</Table.Cell>
                                         <Table.Cell>{order.label}</Table.Cell>
                                         <Table.Cell>{order.description}</Table.Cell>
@@ -88,11 +107,7 @@ function Transactions() {
                     </Table>
                 </div>
             </div>
-            <Button
-                className={"!bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1 mt-20"}
-                onClick={downloadPDF}>
-                <span className={"text-xl"}>Download PDF</span>
-            </Button>
+
 
             <table id="ordersTable" style={{display: 'none'}}>
                 <thead>
