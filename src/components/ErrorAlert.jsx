@@ -2,7 +2,7 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTriangleExclamation} from "@fortawesome/free-solid-svg-icons";
 
-function ErrorAlert({color, email}) {
+function ErrorAlert({color, text}) {
     const [showAlert, setShowAlert] = React.useState(true);
     return (
         <>
@@ -16,7 +16,7 @@ function ErrorAlert({color, email}) {
             <FontAwesomeIcon icon={faTriangleExclamation}/>
           </span>
                     <span className="inline-block align-middle mr-8">
-            <b className="capitalize">Error!</b> An account with the email: {email} already exists.
+            <b className="capitalize">Error!</b> {text}
           </span>
                     <button
                         className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"

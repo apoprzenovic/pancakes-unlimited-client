@@ -17,6 +17,7 @@ function Signup() {
     const [passwordError, setPasswordError] = useState("");
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
     const [alert, showAlert] = useState(false);
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         let error = "";
@@ -196,7 +197,7 @@ function Signup() {
 
                 </form>
             </div>
-            {alert ? <ErrorAlert color={"red"} email={emailUsedForSignup}/> : null}
+            {alert ? <ErrorAlert color={"red"} text={`An account with the email: ${emailUsedForSignup} already exists.`}/> : null}
 
         </>
 
