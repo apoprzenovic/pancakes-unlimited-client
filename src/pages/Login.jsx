@@ -1,6 +1,7 @@
 import react from "react";
 import {Button, Label, TextInput} from "flowbite-react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 function Login() {
 
@@ -10,12 +11,21 @@ function Login() {
         e.preventDefault();
         // if user exists when logging in, redirect to home page
         // else, display error alert same as Sign up
+        axios.put('http://localhost:8080/api/pu/users/8', {
+                firstname: "works",
+            })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     return (
         <div className={"m-16"}>
             <h1 className={"text-center mb-10 text-2xl text-main-text-out-of-focus"}>Log In</h1>
-            <form className="flex flex-col gap-4 m-auto w-3/12">
+            <form className="flex flex-col gap-4 m-auto w-3/12" onSubmit={handleSubmit}>
                 <div>
                     <div className="mb-2 block">
                         <Label

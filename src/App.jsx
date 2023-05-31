@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import InvalidPage from "./pages/InvalidPage";
 import NavBar from "./components/NavBar";
+import History from "./pages/History";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/order" element={<Order/>}/>
+                <Route path="/history" element={<History/>}/>
                 <Route path="/inventory" element={<Inventory/>}/>
                 <Route path="/transactions" element={<Transactions/>}/>
                 <Route path="/profile" element={<Profile/>}/>

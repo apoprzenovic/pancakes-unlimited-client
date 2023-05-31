@@ -37,7 +37,7 @@ function NavBar() {
             >
                 <Navbar.Brand href="/">
                     <img
-                        alt="Flowbite Logo"
+                        alt="PU Logo"
                         className="mr-3 h-6 sm:h-9 md:pl-10 pl-3"
                         src={"logo.png"}
                     />
@@ -81,6 +81,12 @@ function NavBar() {
                                  className={activeRoute("/order")}
                     >
                         Order
+                        <hr className={activeRouteForLine("/order")}/>
+                    </Navbar.Link>
+                    <Navbar.Link as={Link} to={"/history"}
+                                 className={activeRoute("/history")}
+                    >
+                        History
                         <hr className={activeRouteForLine("/order")}/>
                     </Navbar.Link>
                     <Navbar.Link as={Link} to={"/inventory"}

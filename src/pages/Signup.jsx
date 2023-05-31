@@ -1,13 +1,22 @@
 import react, {useEffect, useState} from "react";
 import {Label, TextInput} from "flowbite-react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
+import ErrorAlert from "../components/ErrorAlert";
 
 function Signup() {
 
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [emailUsedForSignup, setEmailUsedForSignup] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [passwordError, setPasswordError] = useState("");
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
+    const [alert, showAlert] = useState(false);
 
     useEffect(() => {
         let error = "";
@@ -50,110 +59,147 @@ function Signup() {
         setRepeatPasswordError(repeatPasswordError);
 
         if (password === repeatPassword && passwordError === '' && repeatPasswordError === '') {
-            setPasswordError("WORKS!");
-            // also before this, check if user exists in database, if already exists, I can display an error alert
-            submitNewUser();
+
+            axios.get(`http://localhost:8080/api/pu/users/email/${email}`)
+                .then(res => {
+                    if (res.data) {
+                        setEmailUsedForSignup(email);
+                        showAlert(true);
+                    } else {
+                        submitNewUser();
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
         }
     }
 
     function submitNewUser() {
-        // submission logic here later when I connect everything to my backend
+        axios.post('http://localhost:8080/api/pu/users', {
+            email: email,
+            firstname: firstname,
+            lastname: lastname,
+            password: password,
+            // default role for consumer, can be updated via put
+            roles: {
+                id: 1,
+                name: "consumer",
+            }
+        })
+            .then(res => {
+                // redirect user to the home page after successful registration
+                navigate("/");
+            })
+            .catch(err => {
+                console.error(err);
+            });
     }
 
 
     return (
-        <div className={"m-16"}>
-            <h1 className={"text-center mb-10 text-2xl text-main-text-out-of-focus"}>Sign Up</h1>
-            <form className="flex flex-col gap-4 m-auto w-3/12" onSubmit={handleSubmit}>
-                <div>
-                    <div className="mb-2 block">
-                        <Label
-                            htmlFor="email2"
-                            value="Your email"
-                        />
-                    </div>
-                    <TextInput
-                        id="email2"
-                        placeholder="johndoe@example.com"
-                        required
-                        shadow
-                        type="email"
-                    />
-                </div>
-
-                <div className={"flex gap-4"}>
-                    <div className={"w-1/2"}>
+        <>
+            <div className={"m-16"}>
+                <h1 className={"text-center mb-10 text-2xl text-main-text-out-of-focus"}>Sign Up</h1>
+                <form className="flex flex-col gap-4 m-auto w-3/12" onSubmit={handleSubmit}>
+                    <div>
                         <div className="mb-2 block">
                             <Label
-                                htmlFor="name"
-                                value="Your name"
+                                htmlFor="email2"
+                                value="Your email"
                             />
                         </div>
                         <TextInput
-                            id="name"
-                            placeholder="John"
+                            id="email2"
+                            placeholder="johnwick@pancake-extravaganza.com"
                             required
                             shadow
-                            type="text"
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
-                    <div className={"w-1/2"}>
-                        <div className="mb-2 block">
-                            <Label
-                                htmlFor="lastname"
-                                value="Your last name"
+
+                    <div className={"flex gap-4"}>
+                        <div className={"w-1/2"}>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="name"
+                                    value="Your name"
+                                />
+                            </div>
+                            <TextInput
+                                id="name"
+                                placeholder="John"
+                                required
+                                shadow
+                                type="text"
+                                onChange={(e) => setFirstname(e.target.value)}
                             />
                         </div>
+                        <div className={"w-1/2"}>
+                            <div className="mb-2 block">
+                                <Label
+                                    htmlFor="lastname"
+                                    value="Your last name"
+                                />
+                            </div>
+                            <TextInput
+                                id="lastname"
+                                placeholder="Doe"
+                                required
+                                shadow
+                                type="text"
+                                onChange={(e) => setLastname(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="mb-2 block">
+                            <Label htmlFor="password2" value="Your password"/>
+                        </div>
                         <TextInput
-                            id="lastname"
-                            placeholder="Doe"
+                            id="password2"
+                            placeholder="Password"
                             required
                             shadow
-                            type="text"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            helperText={<span className="text-red-600">{passwordError}</span>}
                         />
                     </div>
-                </div>
-
-                <div>
-                    <div className="mb-2 block">
-                        <Label htmlFor="password2" value="Your password"/>
+                    <div>
+                        <div className="mb-2 block">
+                            <Label htmlFor="repeat-password" value="Repeat password"/>
+                        </div>
+                        <TextInput
+                            id="repeat-password"
+                            placeholder="Repeat Password"
+                            required
+                            shadow
+                            type="password"
+                            value={repeatPassword}
+                            onChange={(e) => setRepeatPassword(e.target.value)}
+                            helperText={<span className="text-red-600">{repeatPasswordError}</span>}
+                        />
                     </div>
-                    <TextInput
-                        id="password2"
-                        placeholder="Password"
-                        required
-                        shadow
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        helperText={<span className="text-red-600">{passwordError}</span>}
-                    />
-                </div>
-                <div>
-                    <div className="mb-2 block">
-                        <Label htmlFor="repeat-password" value="Repeat password"/>
-                    </div>
-                    <TextInput
-                        id="repeat-password"
-                        placeholder="Repeat Password"
-                        required
-                        shadow
-                        type="password"
-                        value={repeatPassword}
-                        onChange={(e) => setRepeatPassword(e.target.value)}
-                        helperText={<span className="text-red-600">{repeatPasswordError}</span>}
-                    />
-                </div>
-                <Label htmlFor={"login"}><span className={"text-gray-500"}>Already have an account? <Link to={"/login"}
-                                                                                                          className={"text-main-text-black underline hover:text-main-text-in-focus"}>Log
+                    <Label htmlFor={"login"}><span className={"text-gray-500"}>Already have an account? <Link
+                        to={"/login"}
+                        className={"text-main-text-black underline hover:text-main-text-in-focus"}>Log
                     in!</Link></span></Label>
 
-                <button type={"submit"}
-                        className={"bg-main-text-out-of-focus hover:bg-main-text-in-focus rounded p-2 text-white mt-6 w-1/2 m-auto transition-colors duration-300"}>
-                    Sign Up
-                </button>
-            </form>
-        </div>
+                    <button type={"submit"}
+                            className={"bg-main-text-out-of-focus hover:bg-main-text-in-focus rounded p-2 text-white mt-6 w-1/2 m-auto transition-colors duration-300"}>
+                        Sign Up
+                    </button>
+
+                </form>
+            </div>
+            {alert ? <ErrorAlert color={"red"} email={emailUsedForSignup}/> : null}
+
+        </>
+
     );
 }
 
