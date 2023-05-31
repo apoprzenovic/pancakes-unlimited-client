@@ -1,22 +1,20 @@
-import react, {useState} from "react";
+import react, {useContext, useEffect, useState} from "react";
 import {Label, TextInput} from "flowbite-react";
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../components/ErrorAlert";
-import bcrypt from "bcryptjs";
+import {UserContext} from "../context/UserContext";
 
 function Login() {
 
-    const [email, setEmail] = useState("");
+        const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [alert, showAlert] = useState(false);
     const navigate = useNavigate();
+    const {handleLogin} = useContext(UserContext);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if user exists when logging in, redirect to home page
-        // else, display error alert same as Sign up
-
 
         axios.get(`http://localhost:8080/api/pu/users/login`, {
             params: {
@@ -26,18 +24,16 @@ function Login() {
         })
             .then(res => {
                 if (res.status === 200) {
-                    login();
+                    handleLogin(res.data);
+                    navigate("/");
                 } else {
                     showAlert(true);
                 }
             })
             .catch(err => {
                 console.error(err);
+                showAlert(true);
             });
-    }
-
-    function login() {
-        navigate("/");
     }
 
     return (
@@ -87,7 +83,7 @@ function Login() {
                 </form>
             </div>
             {alert ? <ErrorAlert color={"red"}
-                                 text={`The input email and/or password is incorrect.`}/> : null}
+                                 text={`The email and/or password is incorrect.`}/> : null}
         </>
 
     );

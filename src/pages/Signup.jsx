@@ -1,8 +1,9 @@
-import react, {useEffect, useState} from "react";
+import react, {useContext, useEffect, useState} from "react";
 import {Label, TextInput} from "flowbite-react";
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../components/ErrorAlert";
+import {UserContext} from "../context/UserContext";
 
 function Signup() {
 
@@ -17,7 +18,7 @@ function Signup() {
     const [passwordError, setPasswordError] = useState("");
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
     const [alert, showAlert] = useState(false);
-    const [user, setUser] = useState({});
+    const {user, handleLogin} = useContext(UserContext);
 
     useEffect(() => {
         let error = "";
@@ -89,7 +90,7 @@ function Signup() {
             }
         })
             .then(res => {
-                // redirect user to the home page after successful registration
+                handleLogin(res.data);
                 navigate("/");
             })
             .catch(err => {
@@ -197,7 +198,8 @@ function Signup() {
 
                 </form>
             </div>
-            {alert ? <ErrorAlert color={"red"} text={`An account with the email: ${emailUsedForSignup} already exists.`}/> : null}
+            {alert ? <ErrorAlert color={"red"}
+                                 text={`An account with the email: ${emailUsedForSignup} already exists.`}/> : null}
 
         </>
 

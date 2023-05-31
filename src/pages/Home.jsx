@@ -26,7 +26,7 @@ function Home() {
                 <div className="text-center p-20 pt-0">
                     <Link
                         to={"/order"}
-                        className="flex items-center justify-center m-auto w-60 h-16 rounded-md bg-main-color px-3.5 py-2.5 text-xl font-semibold text-main-text-in-focus shadow-sm hover:bg-main-in-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+                        className="flex items-center justify-center m-auto w-60 h-16 rounded-md bg-main-color px-3.5 py-2.5 text-xl font-semibold text-main-text-in-focus shadow-sm hover:bg-main-in-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-colors duration-300"
                     >
                         <img src={require("../assets/images/plus.png")} alt={"plus"} className="mr-2" width={30}/>
                         <p className={"pb-1 pl-2 text-2xl"}>
