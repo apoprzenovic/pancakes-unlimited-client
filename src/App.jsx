@@ -8,9 +8,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import InvalidPage from "./pages/InvalidPage";
 import NavBar from "./components/NavBar";
-import History from "./pages/History";
+import Eaten from "./pages/Eaten";
 import {UserContext} from "./context/UserContext";
 import {useMemo, useState} from "react";
+import BackToTopButton from "./components/BackToTopButton";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -29,13 +30,14 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home/>}/>
                 <Route path="/order" element={<Order/>}/>
-                <Route path="/history" element={<History/>}/>
+                <Route path="/eaten" element={<Eaten/>}/>
                 <Route path="/inventory" element={<Inventory/>}/>
                 <Route path="/transactions" element={<Transactions/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path={"/signup"} element={<Signup/>}/>
                 <Route path="*" element={<InvalidPage/>}/>
             </Routes>
+            <BackToTopButton/>
         </UserContext.Provider>
     );
 }

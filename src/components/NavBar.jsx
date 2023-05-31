@@ -124,13 +124,13 @@ function NavBar() {
                             Order
                             <hr className={activeRouteForLine("/order")}/>
                         </Navbar.Link>
-                        <Navbar.Link as={Link} to={"/history"}
-                                     className={activeRoute("/history")}
+                        <Navbar.Link as={Link} to={"/eaten"}
+                                     className={activeRoute("/eaten")}
                         >
-                            History
-                            <hr className={activeRouteForLine("/order")}/>
+                            Eaten
+                            <hr className={activeRouteForLine("/eaten")}/>
                         </Navbar.Link>
-                        {user && user.roles && user.roles.id === 2 &&
+                        {user && user.roles && (user.roles.id === 2 || user.roles.id === 3) &&
                             <Navbar.Link as={Link} to={"/inventory"}
                                          className={activeRoute("/inventory")}> Inventory <hr
                                 className={activeRouteForLine("/inventory")}/></Navbar.Link>}
