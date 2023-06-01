@@ -13,6 +13,7 @@ const Signup = React.lazy(() => import("./pages/Signup"));
 const InvalidPage = React.lazy(() => import("./pages/InvalidPage"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Eaten = React.lazy(() => import("./pages/Eaten"));
+const AddIngredient = React.lazy(() => import("./pages/AddIngredient"));
 
 function App() {
     const localUser = JSON.parse(localStorage.getItem('user')); // Get the user data from local storage
@@ -41,7 +42,8 @@ function App() {
                     <Route path="/inventory" element={<Inventory/>}/>
                     <Route path="/transactions" element={<Transactions/>}/>
                     <Route path="/login" element={<Login/>}/>
-                    <Route path={"/signup"} element={<Signup/>}/>
+                    <Route path="/signup" element={<Signup/>}/>
+                    <Route path="/addingredient" element={<AddIngredient/>}/>
                     <Route path="*" element={<InvalidPage/>}/>
                 </Routes>
             </Suspense>

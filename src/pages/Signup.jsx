@@ -20,18 +20,22 @@ function Signup() {
     const [repeatPasswordError, setRepeatPasswordError] = useState("");
     const [alert, showAlert] = useState(false);
     const {user, handleLogin} = useContext(UserContext);
+    const [validForm, setValidForm] = useState(false);
 
     useEffect(() => {
         let error = "";
         if (password.length < 8) {
             error += "Password must be 8 characters or more | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         if (!/\d/.test(password)) {
             error += "Password must contain a number | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         if (!/[A-Z]/.test(password)) {
             error += "Password must contain an uppercase letter | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         error = error.slice(0, -3);
         setPasswordError(error.trim());
     }, [password]);
@@ -44,24 +48,28 @@ function Signup() {
 
         if (password.length < 8) {
             passwordError += "Password must be 8 characters or more | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         if (!/\d/.test(password)) {
             passwordError += "Password must contain a number | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         if (!/[A-Z]/.test(password)) {
             passwordError += "Password must contain an uppercase letter | ";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
         passwordError = passwordError.slice(0, -3);
 
         if (password !== repeatPassword) {
             repeatPasswordError = "Passwords do not match";
-        }
+            setValidForm(false);
+        } else setValidForm(true);
 
         // Update error states
         setPasswordError(passwordError);
         setRepeatPasswordError(repeatPasswordError);
 
-        if (password === repeatPassword && passwordError === '' && repeatPasswordError === '') {
+        if (password === repeatPassword && validForm) {
 
             axios.get(`http://localhost:8080/api/pu/users/email/${email}`)
                 .then(res => {

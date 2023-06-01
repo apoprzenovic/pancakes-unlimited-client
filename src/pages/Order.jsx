@@ -6,8 +6,8 @@ function Order() {
             <div className={"w-2/5 flex flex-col items-center bg-main-background m-auto container"}>
                 <div className={"m-auto pb-20"}>
                     <div className={"flex justify-between items-center mb-2"}>
-                        <h1 className={"text-4xl font-bold"}>Order Now</h1>
-                        {/*    Not sure if it will get aligned right or center here*/}
+                        <h1 className={"text-4xl font-bold"}>Inventory</h1>
+
                     </div>
                     <hr className={"border-main-text-out-of-focus border-2 rounded-2xl w-full mb-10"}/>
                 </div>

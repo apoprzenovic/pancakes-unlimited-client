@@ -56,6 +56,7 @@ function Transactions() {
                     <div className={"flex justify-between items-center mb-2"}>
                         <h1 className={"text-4xl font-bold"}>Transaction Report</h1>
                         <Button
+                            color={"warning"}
                             className={"!bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1"}
                             onClick={downloadPDF}>
                             <span className={"text-xl"}>Download PDF</span>
@@ -92,7 +93,7 @@ function Transactions() {
                         </h1>
                     )}
                 </div>
-                <div className={"m-auto ml-6"}>
+                <div className={"m-auto pb-20"}>
                     <Table hoverable>
                         <Table.Head>
                             <Table.HeadCell>Most Ordered Ingredient Last Month</Table.HeadCell>

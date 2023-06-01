@@ -10,6 +10,11 @@ function NavBar() {
     const navigate = useNavigate();
     const {user, handleLogout} = useContext(UserContext);
     const [openModal, setOpenModal] = useState(false);
+    // hacky way to solve dropdown not closing when I press login,
+    // but it works (since there isn't a state on Dropdown to directly control)
+    // and the navbar isn't expensive to rerender, and should happen only once per user,
+    // maybe twice if they switch accounts
+    const [key, setKey] = useState(0);
 
     const handleLogoutClick = () => {
         handleLogout();
@@ -20,22 +25,25 @@ function NavBar() {
         setOpenModal(true);
     }
 
+    const handleLoginClick = () => {
+        navigate("/login");
+        setKey(prevKey => prevKey + 1);
+    }
+
     const activeRoute = (route) => {
-        // This function returns the style for the active route
         return location.pathname === route
             ? "text-2xl !text-main-text-in-focus hover:!text-main-text-in-focus hover:!bg-transparent border-none transition-colors duration-300"
             : "text-2xl !text-main-text-out-of-focus hover:!text-main-text-in-focus hover:!bg-transparent border-none transition-colors duration-300";
     }
 
     const activeRouteForLine = (route) => {
-        // This function returns the style for the active route
         return location.pathname === route
             ? "md:hidden w-full mt-2 border-main-text-in-focus border-b rounded transition-colors duration-300"
             : "md:hidden w-full mt-2 border-main-text-out-of-focus opacity-75 border-b rounded transition-colors duration-300";
     }
 
     return (
-        <>
+        <div key={key}>
             <Modal
                 onClose={() => {
                     setOpenModal(false)
@@ -60,7 +68,7 @@ function NavBar() {
                                 className={"!border !border-black bg-transparent hover:!bg-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
                                 onClick={handleLogoutClick}
                             >
-                                     Yes, I'm sure
+                                Yes, I'm sure
 
                             </Button>
                             <Button
@@ -69,7 +77,7 @@ function NavBar() {
                                     setOpenModal(false)
                                 }}
                             >
-                                    Cancel
+                                Cancel
                             </Button>
                         </div>
                     </div>
@@ -102,11 +110,12 @@ function NavBar() {
                               {user ? user.firstname + " " + user.lastname : "Not Logged In"}
                             </span>
                             </Dropdown.Header>
-                            {user ? <Dropdown.Item onClick={() => {
-                                onClickToggle();
-                            }}>Log out</Dropdown.Item> : <Dropdown.Item onClick={() => {
-                                navigate("/login")
-                            }}>Log in</Dropdown.Item>}
+                            {user ? <Dropdown.Item className={"transition-colors duration-300"} onClick={() => {
+                                    onClickToggle();
+                                }}>Log out</Dropdown.Item> :
+                                <Dropdown.Item className={"transition-colors duration-300"} onClick={() => {
+                                    handleLoginClick();
+                                }}>Log in</Dropdown.Item>}
                         </Dropdown>
                         <Navbar.Toggle/>
                     </div>
@@ -142,7 +151,7 @@ function NavBar() {
                     </Navbar.Collapse>
                 </Navbar>
             </div>
-        </>
+        </div>
     );
 }
 
