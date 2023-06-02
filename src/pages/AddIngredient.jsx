@@ -1,8 +1,10 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Label, TextInput, Button} from "flowbite-react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../components/ErrorAlert";
+import USER_ROLES from "../constants/USER_ROLES";
+import {UserContext} from "../context/UserContext";
 
 function AddIngredient() {
     const navigate = useNavigate();
@@ -13,6 +15,7 @@ function AddIngredient() {
     const [healthy, setHealthy] = useState("");
     const [image, setImage] = useState("");
     const [alert, showAlert] = useState(false);
+    const {user} = useContext(UserContext);
     const [errorMessages, setErrorMessages] = useState({
         name: '',
         category: '',
@@ -71,6 +74,11 @@ function AddIngredient() {
         }
     }
 
+    if(user?.roles.id !== USER_ROLES.EMPLOYEE && user?.roles.id !== USER_ROLES.STORE_OWNER) {
+        return <div><h1 className="text-center font-sans text-main-text-black text-4xl mt-56">You do not have
+            permissions to view this page!</h1></div>;
+    }
+
     return (
         <>
             <div className={"m-16"}>
@@ -88,6 +96,7 @@ function AddIngredient() {
                                 type="text"
                                 onChange={(e) => setName(e.target.value)}
                                 helperText={<span className="text-red-600">{errorMessages.name}</span>}
+                                placeholder="Banana"
                             />
                         </div>
                         <div className={"w-1/2"}>
@@ -101,6 +110,7 @@ function AddIngredient() {
                                 type="text"
                                 onChange={(e) => setCategory(e.target.value)}
                                 helperText={<span className="text-red-600">{errorMessages.category}</span>}
+                                placeholder={"base / filling / topping / fruit"}
                             />
                         </div>
                     </div>
@@ -117,6 +127,7 @@ function AddIngredient() {
                                 type="text"
                                 onChange={(e) => setPrice(e.target.value)}
                                 helperText={<span className="text-red-600">{errorMessages.price}</span>}
+                                placeholder={"15.99"}
                             />
                         </div>
                         <div className={"w-1/2"}>
@@ -130,6 +141,7 @@ function AddIngredient() {
                                 type="text"
                                 onChange={(e) => setHealthy(e.target.value)}
                                 helperText={<span className="text-red-600">{errorMessages.healthy}</span>}
+                                placeholder={"yes / no"}
                             />
                         </div>
                     </div>
@@ -145,18 +157,19 @@ function AddIngredient() {
                             type="text"
                             onChange={(e) => setImage(e.target.value)}
                             helperText={<span className="text-red-600">{errorMessages.image}</span>}
+                            placeholder={"https://www.example.com/image.png"}
                         />
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <Button color="warning"
-                                className={"!border !border-black !bg-main-background hover:!bg-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
+                        <Button color="dark"
+                                className={"focus:!outline-none focus:!ring-0 focus:!ring-transparent !border !border-main-text-black !bg-main-background hover:!bg-main-text-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
                                 onClick={() => navigate("/inventory")}>
                             Back
                         </Button>
 
                         <Button color="warning" type="submit"
-                                className="!bg-main-color !text-main-text-in-focus hover:!bg-main-in-focus hover:!text-white transition-colors duration-300">
+                                className="focus:!outline-none focus:!ring-0 focus:!ring-transparent !bg-main-color !text-main-text-in-focus hover:!bg-main-in-focus transition-colors duration-300">
                             Add Ingredient
                         </Button>
                     </div>

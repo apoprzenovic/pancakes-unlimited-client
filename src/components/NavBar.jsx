@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import {Alert, Avatar, Button, Dropdown, Modal, Navbar} from "flowbite-react";
+import {Avatar, Button, Dropdown, Modal, Navbar} from "flowbite-react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {UserContext} from "../context/UserContext";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -19,6 +19,8 @@ function NavBar() {
     const handleLogoutClick = () => {
         handleLogout();
         setOpenModal(false);
+        setKey(prevKey => prevKey + 1);
+        navigate("/");
     }
 
     function onClickToggle() {
@@ -32,7 +34,7 @@ function NavBar() {
 
     const activeRoute = (route) => {
         return location.pathname === route
-            ? "text-2xl !text-main-text-in-focus hover:!text-main-text-in-focus hover:!bg-transparent border-none transition-colors duration-300"
+            ? "text-2xl !text-main-text-in-focus !font-semibold hover:!text-main-text-in-focus hover:!bg-transparent border-none transition-colors duration-300"
             : "text-2xl !text-main-text-out-of-focus hover:!text-main-text-in-focus hover:!bg-transparent border-none transition-colors duration-300";
     }
 
@@ -65,14 +67,14 @@ function NavBar() {
                         </h3>
                         <div className="flex justify-center gap-4">
                             <Button
-                                className={"!border !border-black bg-transparent hover:!bg-black hover:!text-white !text-main-text-in-focus transition-colors duration-300"}
+                                className={"focus:!outline-none focus:!ring-0 focus:!ring-transparent !border !border-main-text-black !bg-transparent hover:!bg-main-text-black !text-main-text-in-focus transition-colors duration-300"}
                                 onClick={handleLogoutClick}
                             >
                                 Yes, I'm sure
 
                             </Button>
                             <Button
-                                className="!bg-main-color !text-main-text-in-focus hover:!bg-main-in-focus hover:!text-white transition-colors duration-300"
+                                className="focus:!outline-none focus:!ring-0 focus:!ring-transparent !bg-main-color !text-main-text-in-focus hover:!bg-main-in-focus hover:!text-white transition-colors duration-300"
                                 onClick={() => {
                                     setOpenModal(false)
                                 }}
@@ -94,8 +96,8 @@ function NavBar() {
                     <Navbar.Brand href="/">
                         <img
                             alt="PU Logo"
-                            className="mr-3 h-6 sm:h-9 md:pl-10 pl-3"
-                            src={"logo.png"}
+                            className="mr-3 h-10 md:pl-10 pl-3"
+                            src={require("../assets/images/pancake-topMaple.png")}
                         />
                     </Navbar.Brand>
                     <div className="flex md:order-2 md:pr-10 pr-2">
@@ -139,7 +141,7 @@ function NavBar() {
                             Eaten
                             <hr className={activeRouteForLine("/eaten")}/>
                         </Navbar.Link>
-                        {user && user.roles && (user.roles.id === 2 || user.roles.id === 3) &&
+                        {user && user.roles && (user.roles.id === 2) &&
                             <Navbar.Link as={Link} to={"/inventory"}
                                          className={activeRoute("/inventory")}> Inventory <hr
                                 className={activeRouteForLine("/inventory")}/></Navbar.Link>}

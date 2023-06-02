@@ -18,6 +18,9 @@ module.exports = withMT({
             },
             fontFamily: {
                 // 'main-questrial': ['Questrial', 'sans-serif'],
+            },
+            spacing: {
+                '13': '3.25rem',
             }
         },
     },

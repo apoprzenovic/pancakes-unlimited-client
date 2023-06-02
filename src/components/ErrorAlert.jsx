@@ -19,7 +19,7 @@ function ErrorAlert({color, text}) {
             <b className="capitalize">Error!</b> {text}
           </span>
                     <button
-                        className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:outline-none"
+                        className="absolute bg-transparent text-2xl font-semibold leading-none right-0 top-0 mt-4 mr-6 outline-none focus:!outline-none focus:!ring-0 focus:!ring-transparent transition-all duration-300"
                         onClick={() => setShowAlert(false)}
                     >
                         <span>×</span>

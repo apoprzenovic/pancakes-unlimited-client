@@ -13,7 +13,7 @@ function InvalidPage() {
                     <div className="mt-10 flex items-center justify-center gap-x-6">
                         <Link
                             to={"/"}
-                            className="rounded-md bg-main-in-focus px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-main-color focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            className="rounded text-base px-3.5 py-2.5 focus:!outline-none focus:!ring-0 focus:!ring-transparent !bg-main-color !text-main-text-in-focus hover:!bg-main-in-focus transition-colors duration-300"
                         >
                             Go back home
                         </Link>

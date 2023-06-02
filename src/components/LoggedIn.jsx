@@ -34,7 +34,7 @@ function LoggedIn() {
                             Go back home
                         </Link>
                         <button
-                            className="rounded-md border-main-text-out-of-focus border text-main-text-out-of-focus px-3.5 py-2.5 text-sm font-semibold hover:text-white shadow-sm hover:bg-main-text-in-focus focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors duration-300"
+                            className="rounded-md border-main-text-out-of-focus border text-main-text-out-of-focus px-3.5 py-2.5 text-sm font-semibold hover:text-white shadow-sm hover:bg-main-text-in-focus focus:!outline-none focus:!ring-0 focus:!ring-transparent transition-colors duration-300"
                             onClick={onClickToggle}
                         >
                             Log Out

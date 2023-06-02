@@ -31,10 +31,10 @@ function App() {
 
     return (
         <UserContext.Provider value={value}>
-            <NavBar/>
             <Suspense fallback={<div className={"text-center m-auto text-3xl mt-20"}>
                 <div className="lds-dual-ring text-center m-auto text-3xl mt-20"></div>
             </div>}>
+                <NavBar/>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/order" element={<Order/>}/>
@@ -46,8 +46,9 @@ function App() {
                     <Route path="/addingredient" element={<AddIngredient/>}/>
                     <Route path="*" element={<InvalidPage/>}/>
                 </Routes>
+                <BackToTopButton/>
             </Suspense>
-            <BackToTopButton/>
+
         </UserContext.Provider>
     )
         ;

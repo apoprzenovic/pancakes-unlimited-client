@@ -44,7 +44,7 @@ function Login() {
     return (
         <>
             <div className={"m-16"}>
-                <h1 className={"text-center mb-10 text-2xl text-main-text-out-of-focus"}>Log In</h1>
+                <h1 className={"text-center mb-10 text-2xl text-main-text-black"}>Log In</h1>
                 <form className="flex flex-col gap-4 m-auto w-3/12" onSubmit={handleSubmit}>
                     <div>
                         <div className="mb-2 block">
@@ -77,12 +77,12 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <Label htmlFor={"login"}><span className={"text-gray-500"}>Don't have an account? <Link
+                    <Label htmlFor={"login"}><span className={"text-gray-600"}>Don't have an account? <Link
                         to={"/signup"}
                         className={"text-main-text-black underline hover:text-main-text-in-focus"}>Sign
                     up!</Link></span></Label>
                     <button type={"submit"}
-                            className={"bg-main-text-out-of-focus hover:bg-main-text-in-focus rounded p-2 text-white mt-6 w-1/2 m-auto transition-colors duration-300"}>
+                            className={"focus:!outline-none focus:!ring-0 focus:!ring-transparent bg-main-text-out-of-focus hover:bg-main-text-black rounded p-2 text-white mt-6 w-1/2 m-auto transition-colors duration-300"}>
                         Log In
                     </button>
                 </form>

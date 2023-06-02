@@ -51,33 +51,35 @@ function Transactions() {
 
     return (
         <div className="flex flex-col items-center justify-center pt-14">
-            <div className={"w-2/5 flex flex-col items-center bg-main-background m-auto container"}>
+            <div className={"w-9/12 flex flex-col items-center bg-main-background m-auto container"}>
                 <div className={"m-auto pb-20"}>
                     <div className={"flex justify-between items-center mb-2"}>
                         <h1 className={"text-4xl font-bold"}>Transaction Report</h1>
                         <Button
                             color={"warning"}
-                            className={"!bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1"}
+                            className={"focus:!outline-none focus:!ring-0 focus:!ring-transparent !bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1"}
                             onClick={downloadPDF}>
-                            <span className={"text-xl"}>Download PDF</span>
+                            <img src={require("../assets/images/download.png")} alt={"plus"} className="mr-2"
+                                     width={22}/>
+                            <span className={"text-xl pb-1"}>Download PDF</span>
                         </Button>
                     </div>
-                    <hr className={"border-main-text-out-of-focus border-2 rounded-2xl w-full mb-10"}/>
+                    <hr className={"border-main-text-out-of-focus border-2 rounded-2xl w-full mb-14"}/>
                     {user && orders.length > 0 ? (
                         <Table hoverable className={"!rounded-b"}>
-                            <Table.Head className={""}>
-                                <Table.HeadCell>ID</Table.HeadCell>
-                                <Table.HeadCell>User Email</Table.HeadCell>
-                                <Table.HeadCell>Label</Table.HeadCell>
-                                <Table.HeadCell>Description</Table.HeadCell>
-                                <Table.HeadCell>Order Time</Table.HeadCell>
-                                <Table.HeadCell>Price</Table.HeadCell>
+                            <Table.Head className={"!text-main-text-black"}>
+                                <Table.HeadCell className={"bg-main-color"}>ID</Table.HeadCell>
+                                <Table.HeadCell className={"bg-main-color"}>User Email</Table.HeadCell>
+                                <Table.HeadCell className={"bg-main-color"}>Label</Table.HeadCell>
+                                <Table.HeadCell className={"bg-main-color"}>Description</Table.HeadCell>
+                                <Table.HeadCell className={"bg-main-color"}>Order Time</Table.HeadCell>
+                                <Table.HeadCell className={"bg-main-color"}>Price</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
                                 {orders.map((order) => (
                                     <Table.Row key={order.id}
-                                               className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className={""}>{order.id}</Table.Cell>
+                                               className="bg-white dark:border-gray-700 dark:bg-gray-800 !text-gray-800">
+                                        <Table.Cell className={"bg-gray-100"}>{order.id}</Table.Cell>
                                         <Table.Cell>{order.users.email}</Table.Cell>
                                         <Table.Cell>{order.label}</Table.Cell>
                                         <Table.Cell>{order.description}</Table.Cell>
@@ -95,12 +97,12 @@ function Transactions() {
                 </div>
                 <div className={"m-auto pb-20"}>
                     <Table hoverable>
-                        <Table.Head>
-                            <Table.HeadCell>Most Ordered Ingredient Last Month</Table.HeadCell>
-                            <Table.HeadCell>Most Ordered Healthy Ingredient Last Month</Table.HeadCell>
+                        <Table.Head className={"!text-main-text-black"}>
+                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Ingredient Last Month</Table.HeadCell>
+                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Healthy Ingredient Last Month</Table.HeadCell>
                         </Table.Head>
                         <Table.Body>
-                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 !text-gray-800">
                                 <Table.Cell>{mostOrdered?.name}</Table.Cell>
                                 <Table.Cell>{mostOrderedHealthy?.name}</Table.Cell>
                             </Table.Row>
