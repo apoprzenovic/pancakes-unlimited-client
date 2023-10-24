@@ -341,7 +341,7 @@ function Order() {
                                         <div className="flex flex-col md:flex-row justify-center items-center">
                                             <Button onClick={submitOrder}
                                                     disabled={loading}
-                                                    className="focus:outline-none focus:ring-0 focus:ring-transparent bg-main-color text-main-text-in-focus hover:bg-main-in-focus transition-colors duration-300">Submit
+                                                    className="focus:outline-none focus:ring-0 focus:ring-transparent bg-main-color !text-main-text-black hover:bg-main-in-focus transition-colors duration-300">Submit
                                                 Order</Button>
                                         </div>
                                     </>

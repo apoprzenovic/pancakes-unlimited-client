@@ -4,12 +4,8 @@ import axios from "axios";
 import {jsPDF} from "jspdf";
 import autoTable from 'jspdf-autotable';
 import {Button, Table} from "flowbite-react";
+import USER_ROLES from "../constants/USER_ROLES";
 
-const USER_ROLES = {
-    CUSTOMER: 1,
-    EMPLOYEE: 2,
-    STORE_OWNER: 3
-};
 
 function Transactions() {
     const [orders, setOrders] = useState([]);
@@ -60,7 +56,7 @@ function Transactions() {
                             className={"focus:!outline-none focus:!ring-0 focus:!ring-transparent !bg-main-color !text-main-text-black hover:!bg-main-in-focus !border-main-color transition-colors duration-300 p-1"}
                             onClick={downloadPDF}>
                             <img src={require("../assets/images/download.png")} alt={"plus"} className="mr-2"
-                                     width={22}/>
+                                 width={22}/>
                             <span className={"text-xl pb-1"}>Download PDF</span>
                         </Button>
                     </div>
@@ -98,8 +94,10 @@ function Transactions() {
                 <div className={"m-auto pb-20"}>
                     <Table hoverable>
                         <Table.Head className={"!text-main-text-black"}>
-                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Ingredient Last Month</Table.HeadCell>
-                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Healthy Ingredient Last Month</Table.HeadCell>
+                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Ingredient Last
+                                Month</Table.HeadCell>
+                            <Table.HeadCell className={"bg-main-color"}>Most Ordered Healthy Ingredient Last
+                                Month</Table.HeadCell>
                         </Table.Head>
                         <Table.Body>
                             <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 !text-gray-800">
