@@ -4,7 +4,7 @@
 This is the client-side application for the Pancakes Unlimited project. It's a React-based web application designed for managing and ordering pancakes efficiently. The app includes features like inventory management, order creation, and user authentication.
 
 ## Server Connection
-To ensure full functionality of this client application, it must be connected to the Pancakes Unlimited Server. Make sure the server is running and exposed at port 8000. For more information on setting up and running the server, please refer to the server's README documentation.
+To ensure full functionality of this client application, it must be connected to the [Pancakes Unlimited Server](https://github.com/apoprzenovic/pu-server). Make sure the server is running and exposed at port 8000. For more information on setting up and running the server, please refer to the server's README documentation.
 
 ## Getting Started
 
